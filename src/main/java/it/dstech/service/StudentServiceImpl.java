@@ -17,5 +17,15 @@ public class StudentServiceImpl implements StudentService {
 		return studentDao.saveStudent(stud);
 	}
 
+	@Override
+	public boolean updateStudent(Student stud) {
+		return studentDao.updateStudent(stud);
+	}
+
+	@Override
+	public boolean deleteStudent(int id) {
+		return studentDao.deleteStudent(id);
+	}
+
 	
 }

@@ -2,6 +2,8 @@ package it.dstech.dao;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import it.dstech.model.Student;
@@ -12,12 +14,40 @@ public class StudentDaoImpl extends AbstractDao implements StudentDao {
 
 	@Override
 	public Student saveStudent(Student stud) {
+		return (Student) this.persist(stud);
+	}
+
+	@Override
+	public boolean updateStudent(Student stud) {
 		try{
-			this.persist(stud);
-			return stud;
+			this.update(stud);
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public Student getStudentById(int id){
+		try{
+			Criteria critiria=getSession().createCriteria(Student.class);
+			critiria.add(Restrictions.eq("id",id));
+			return (Student) critiria.uniqueResult();
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
+		}
+	}
+
+	@Override
+	public boolean deleteStudent(int id) {
+		try{
+			Student student=getStudentById(id);
+			this.delete(student);
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
 		}
 	}
 

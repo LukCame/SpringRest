@@ -1,5 +1,7 @@
 package it.dstech.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,6 +67,17 @@ public class StudentController {
 			return new ResponseEntity<>(outcome,HttpStatus.OK);
 		}else{
 			return new ResponseEntity<>(outcome,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/show")
+	public ResponseEntity<List<Student>> showStudents(){
+		try{
+			List<Student> students = service.retrieveAllStudents();
+			return new ResponseEntity<List<Student>>(students,HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			return new ResponseEntity<List<Student>>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

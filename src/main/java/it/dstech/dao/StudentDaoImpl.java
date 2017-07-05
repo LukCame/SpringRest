@@ -1,8 +1,11 @@
 package it.dstech.dao;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -50,5 +53,12 @@ public class StudentDaoImpl extends AbstractDao implements StudentDao {
 			return false;
 		}
 	}
+	
+	public List<Student> retrieveAllStudents(){
+		String hql="select s from Student s";
+		Query query = getSession().createQuery(hql);
+		return (List<Student>) query.list();
+	}
+
 
 }

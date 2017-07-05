@@ -1,5 +1,7 @@
 package it.dstech.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,12 @@ public class StudentServiceImpl implements StudentService {
 	public boolean deleteStudent(int id) {
 		return studentDao.deleteStudent(id);
 	}
+
+	@Override
+	public List<Student> retrieveAllStudents() {
+		return studentDao.retrieveAllStudents();
+	}
+	
 
 	
 }

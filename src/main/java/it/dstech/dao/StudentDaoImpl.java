@@ -59,6 +59,5 @@ public class StudentDaoImpl extends AbstractDao implements StudentDao {
 		Query query = getSession().createQuery(hql);
 		return (List<Student>) query.list();
 	}
-
-
+	
 }

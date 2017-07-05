@@ -13,4 +13,7 @@ public interface StudentDao {
 	public boolean deleteStudent(int id);
 	
 	public List<Student> retrieveAllStudents();
+	
+	public Student getStudentById(int id);
+	
 }

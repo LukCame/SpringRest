@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.dstech.model.Student;
+import it.dstech.service.StudentCourseAssociationService;
 import it.dstech.service.StudentService;
 
 @RestController
@@ -22,6 +23,9 @@ public class StudentController {
 
 	@Autowired
 	private StudentService service;
+	
+	@Autowired
+	private StudentCourseAssociationService serviceAss;
 	
 	@GetMapping("/getModel")
 	public Student getModel(){
@@ -78,6 +82,25 @@ public class StudentController {
 		}catch(Exception e){
 			e.printStackTrace();
 			return new ResponseEntity<List<Student>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/read")
+	public ResponseEntity<Student> readStudent(@RequestHeader("id") int id){
+		Student stud=service.getStudentById(id);
+		if(stud==null){
+			return new ResponseEntity<Student>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}else{
+			return new ResponseEntity<Student>(stud,HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping("/associateCourse")
+	public ResponseEntity<Boolean> associate(@RequestHeader("idStudente") int idStudente,@RequestHeader("idCorso") int idCorso){
+		if(serviceAss.associate(idCorso, idStudente)){
+			return new ResponseEntity<Boolean>(HttpStatus.OK);
+		}else{
+			return new ResponseEntity<Boolean>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

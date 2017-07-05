@@ -33,6 +33,12 @@ public class StudentServiceImpl implements StudentService {
 	public List<Student> retrieveAllStudents() {
 		return studentDao.retrieveAllStudents();
 	}
+
+	@Override
+	public Student getStudentById(int id) {
+		return studentDao.getStudentById(id);
+	}
+	
 	
 
 	

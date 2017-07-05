@@ -1,11 +1,10 @@
 package it.dstech.dao;
-import org.hibernate.Criteria;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import it.dstech.model.Student;
+
 
 public abstract class AbstractDao {
 
@@ -26,8 +25,12 @@ public abstract class AbstractDao {
  }
 
  protected Object update(Object obj) {
-  getSession().update(obj);
+  getSession().merge(obj);
   return obj;
+ }
+ 
+ protected void associate2(Object obj){
+	 getSession().save(obj);
  }
  
 }

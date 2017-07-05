@@ -13,4 +13,6 @@ public interface StudentService {
 	public boolean deleteStudent(int id);
 	
 	public List<Student> retrieveAllStudents();
+	
+	public Student getStudentById(int id);
 }

@@ -3,6 +3,7 @@ package it.dstech.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +36,14 @@ public class StudentCourseAssociationServiceImpl implements StudentCourseAssocia
 			return false;
 		}
 	}
+	
+//	public Boolean updateAssociation(int idCorso,int idStudente){
+//		try{
+//			
+//		}catch(Exception e){
+//			e.printStackTrace();
+//			return false;
+//		}
+//	}
 
 }

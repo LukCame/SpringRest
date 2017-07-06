@@ -2,6 +2,7 @@ package it.dstech.service;
 
 import java.util.List;
 
+import it.dstech.model.Course;
 import it.dstech.model.Student;
 
 public interface StudentService {
@@ -15,4 +16,8 @@ public interface StudentService {
 	public List<Student> retrieveAllStudents();
 	
 	public Student getStudentById(int id);
+	
+	public List<Course> retrieveAllCourses(int id);
+	
+	public Boolean removeCourse(int idStudente,int idCorso);
 }

@@ -7,14 +7,22 @@ import javax.transaction.Transactional;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.jboss.logging.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import it.dstech.model.Course;
 import it.dstech.model.Student;
 
 @Repository
 @Transactional
 public class StudentDaoImpl extends AbstractDao implements StudentDao {
 
+	private static final Logger logger = Logger.getLogger(StudentDaoImpl.class);
+	
+	@Autowired
+	CourseDao courseDao;
+	
 	@Override
 	public Student saveStudent(Student stud) {
 		return (Student) this.persist(stud);
@@ -45,6 +53,7 @@ public class StudentDaoImpl extends AbstractDao implements StudentDao {
 	@Override
 	public boolean deleteStudent(int id) {
 		try{
+			logger.info("metodo delete student");
 			Student student=getStudentById(id);
 			this.delete(student);
 			return true;
@@ -59,5 +68,27 @@ public class StudentDaoImpl extends AbstractDao implements StudentDao {
 		Query query = getSession().createQuery(hql);
 		return (List<Student>) query.list();
 	}
+
+	public List<Course> readCoursesFromStudent(int id) {
+		String hql="select c from Student s join s.corsi c where s.id=:id";
+		Query query=getSession().createQuery(hql);
+		query.setParameter("id", id);
+		return (List<Course>) query.list();
+	}
+
+	@Override
+	public Boolean removeCourse(int idStudent, int idCourse) {
+		try{
+			Student student = getStudentById(idStudent);
+			student.getCorsi().removeIf(course-> course.getId()==idCourse);
+			update(student);
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
 	
 }

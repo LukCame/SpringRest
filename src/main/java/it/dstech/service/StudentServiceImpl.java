@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.dstech.dao.StudentDao;
+import it.dstech.model.Course;
 import it.dstech.model.Student;
 
 @Service
@@ -38,6 +39,17 @@ public class StudentServiceImpl implements StudentService {
 	public Student getStudentById(int id) {
 		return studentDao.getStudentById(id);
 	}
+
+	@Override
+	public List<Course> retrieveAllCourses(int id) {
+		return studentDao.readCoursesFromStudent(id);
+	}
+
+	@Override
+	public Boolean removeCourse(int idStudente, int idCorso) {
+		return studentDao.removeCourse(idStudente, idCorso);
+	}
+
 	
 	
 
